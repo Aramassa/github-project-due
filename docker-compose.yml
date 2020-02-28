@@ -1,0 +1,9 @@
+version: "3.7"
+services:
+  app:
+    image: github-project-due:mocha-test
+    build:
+      context: ./
+      dockerfile: docker-image/test.Dockerfile
+    volumes:
+      - ./app:/app
