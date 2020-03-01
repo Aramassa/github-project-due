@@ -2,6 +2,8 @@ version: "3.7"
 services:
   app:
     image: github-project-due:mocha-test
+    env_file:
+      - ./envvars
     build:
       context: ./
       dockerfile: docker-image/test.Dockerfile
