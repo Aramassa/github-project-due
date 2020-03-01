@@ -17,7 +17,7 @@ export class GithubApi{
         this.user = user;
         this.repo = repo;
         this.client = new GitHub({
-            token: "bcbd2dd0581473fc02d8341f99db90b831e6eeb1"
+            token: process.env['GITHUB_TOKEN'] || ""
         });
     }
 
