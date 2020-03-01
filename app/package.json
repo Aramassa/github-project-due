@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "cli": "npm run build && node ./cli.js",
     "build": "npm run clean && tsc",
     "clean": "rm -rf dist",
     "test": "npm run build && mocha dist/test"
@@ -22,7 +23,8 @@
   },
   "homepage": "https://github.com/Aramassa/github-project-due#readme",
   "dependencies": {
-    "github-api": "^3.3.0"
+    "github-api": "^3.3.0",
+    "vorpal": "^1.12.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.9",
