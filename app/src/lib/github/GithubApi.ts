@@ -1,9 +1,16 @@
 const GitHub = require("github-api");
 
+interface Repository{
+    listProjects(): Promise<any>;
+}
 
 interface Project{
     listProjectColumns(): Promise<any>;
     listProjectCards(): Promise<any>;
+}
+
+interface Issue{
+    listIssues(options:any): Promise<any>;
 }
 
 export class GithubApi{
@@ -25,12 +32,21 @@ export class GithubApi{
         return await this.client.getProject(projectId);
     }
 
-    private async getIssue(){
+    private async getIssue(): Promise<Issue>{
         return await this.client.getIssues(this.user, this.repo)
     }
 
-    public async getRepoIssueList(option:any={}): Promise<any[]>{
-        return (await(await this.getIssue()).listIssues(option)).data;
+    private async getRepo(): Promise<Repository>{
+        return await this.client.getRepo(this.user, this.repo);
+    }
+
+    public async listProjects(){
+        let repo = await this.getRepo();
+        return (await repo.listProjects()).data;
+    }
+
+    public async getRepoIssueList(options:any={}): Promise<any[]>{
+        return (await(await this.getIssue()).listIssues(options)).data;
     }
 
     public async listProjectCards(projectId: string): Promise<any[]>{
