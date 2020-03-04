@@ -1,6 +1,7 @@
 import {ProjectDue} from "../lib/ProjectDue";
 import {GithubProject} from "../lib/github/GithubProject";
 import {Project} from "../lib/due/Project";
+import {Task} from "../lib/due/Task";
 
 const userName:string = "Aramassa";
 const repoName:string = "github-project-due-test";
@@ -32,7 +33,11 @@ export class VorpalCommand{
 
     public static async cmdListIssues(args: any = null, callback: any = ()=>{}): Promise<Project> {
         let proj:Project = await due.getProject(this.currentProjectId);
-        await due.getProjectTasks(proj);
+        let tasks:Task[] = await due.getProjectTasks(proj);
+
+        for(let task of tasks){
+            console.log(`${task.debug_line}`)
+        }
 
         callback();
         return proj;

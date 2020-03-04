@@ -2,9 +2,11 @@ const path = require("path");
 import {GithubApi} from "../github/GithubApi";
 
 export class Task{
+    private id: string;
     private title: string;
     private state: string;
     private labels: Array<string>;
+    private github_id: string;
 
     /**
      * @param client
@@ -22,7 +24,13 @@ export class Task{
         return task;
     }
 
+    public get debug_line():string{
+        return `${this.id}) ${this.title} : ${this.state}`;
+    }
+
     private dataWithApiResponse(data: any) {
+        this.id = data.number;
+        this.github_id = data.id;
         this.title = data.title;
         this.state = data.state;
         this.labels = data.labels;
