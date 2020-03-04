@@ -30,8 +30,12 @@ export class VorpalCommand{
         callback();
     }
 
-    public static async cmdListIssues(args: any = null, callback: any = ()=>{}) {
+    public static async cmdListIssues(args: any = null, callback: any = ()=>{}): Promise<Project> {
+        let proj:Project = await due.getProject(this.currentProjectId);
+        await due.getProjectTasks(proj);
 
+        callback();
+        return proj;
     }
 
 }

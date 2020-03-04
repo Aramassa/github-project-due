@@ -22,5 +22,18 @@ export class ProjectDue {
 
         return res;
     }
+
+    public async getProject(projectId: string) : Promise<any>{
+        let proj:Project = new Project(projectId);
+        await proj.load(this.client);
+
+        return proj;
+    }
+
+    public async getProjectTasks(proj: Project) {
+        await proj.loadTasks(this.client);
+
+        return proj.tasks;
+    }
 }
 

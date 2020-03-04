@@ -1,8 +1,13 @@
+import {GithubApi} from "../github/GithubApi";
+import {Task} from "./Task";
+
 export class Project{
 
     private id: string;
     private name: string;
     private body: string;
+
+    private _tasks:Task[];
 
     /**
      *
@@ -46,7 +51,7 @@ export class Project{
         updated_at: '2020-03-01T04:52:54Z'
       },
      */
-    constructor(id:string, name:string, body:string) {
+    constructor(id:string, name:string =null, body:string =null) {
         this.id = id;
         this.name = name;
         this.body = body;
@@ -54,5 +59,25 @@ export class Project{
 
     public get debug_line():string{
         return `<${this.id}> ${this.name}`;
+    }
+
+    public get tasks(): Task[]{
+        return this._tasks;
+    }
+
+    public async load(client:GithubApi){
+        let proj:any = await client.getProject(this.id);
+        this.name = proj.name;
+        this.body = proj.body;
+    }
+
+    public async loadTasks(client:GithubApi){
+        let cards:any = await client.listProjectCards(this.id);
+        let tasks:Task[] = [];
+        for(let card of cards){
+            let task = await Task.loadFromUrl(client, card.content_url);
+            tasks.push(task);
+        }
+        this._tasks = tasks;
     }
 }

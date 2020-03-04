@@ -3,7 +3,7 @@ should()
 
 import {GithubApi} from "../lib/github/GithubApi"
 
-const projectId:string = "3282210";
+const projectId:string = "4038195";
 const apiTest1:GithubApi = new GithubApi("Aramassa", "github-project-due-test");
 
 describe("GithubApi", function() {
@@ -12,9 +12,6 @@ describe("GithubApi", function() {
         this.timeout(5000);
         let projects = await apiTest1.listProjects();
         projects.length.should.gte(1);
-
-        console.log(projects);
-
     });
 
     it('get repository issue list', async ()=>{
@@ -23,7 +20,14 @@ describe("GithubApi", function() {
         let issue: any = await apiTest1.getRepoIssueList();
 
         issue.length.should.gte(1);
+        // console.log(issue);
     });
+
+    it('get repository issue by id', async()=>{
+        this.timeout(5000);
+        let issue: any = await apiTest1.getIssue(1);
+        // console.log(issue);
+    })
 
     it('list cards on project', async ()=>{
         this.timeout(5000);
