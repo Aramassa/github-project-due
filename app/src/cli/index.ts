@@ -5,14 +5,6 @@ const vorpal = require('vorpal')();
 
 let projectId:string;
 
-vorpal.command('echo', 'test')
-    .action((args:any, callback:any)=>{
-        console.log('hello');
-
-        callback();
-        return;
-    });
-
 vorpal.command('repo info', 'リポジトリの情報を表示する')
     .action(VorpalCommand.cmdRepoInfo);
 
