@@ -18,7 +18,7 @@ describe("Vorpal Command", function() {
 
     it('set project id', async function(){
         this.timeout(5000);
-        await VorpalCommand.cmdSetCurrentProject({id: 12345});
+        await VorpalCommand.cmdSetCurrentProject({id: 4038195});
     });
 
     it('list tasks on project', async function(){
