@@ -3,6 +3,7 @@ should()
 
 import {VorpalCommand} from "../cli/VorpalCommand";
 import {Project} from "../lib/due/Project";
+import SimpleProgress from "../lib/util/SimpleProgress";
 
 describe("Vorpal Command", function() {
     it('show repo info', async function(){
@@ -26,5 +27,22 @@ describe("Vorpal Command", function() {
         let proj:Project = await VorpalCommand.cmdListIssues();
 
         proj.debug_line.should.contains("Test Project 001");
+    });
+
+    it('test progress bar', async function(){
+        this.timeout(5000);
+
+        var prog = new SimpleProgress(40);
+        var timer = setInterval(function () {
+            prog.tick();
+            if (prog.complete) {
+                console.log('\ncomplete\n');
+                clearInterval(timer);
+            }
+        }, 50);
+
+        await new Promise(function(suc, rej){
+            setTimeout(suc, 3500);
+        })
     });
 });
