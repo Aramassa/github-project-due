@@ -25,8 +25,6 @@ describe("Vorpal Command", function() {
         this.timeout(5000);
         await VorpalCommand.cmdSetCurrentProject({id: 4038195})
         await VorpalCommand.cmdListIssues();
-
-        proj.debug_line.should.contains("Test Project 001");
     });
 
     it('test progress bar', async function(){
