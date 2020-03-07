@@ -6,6 +6,11 @@ import {Project} from "../lib/due/Project";
 import SimpleProgress from "../lib/util/SimpleProgress";
 
 describe("Vorpal Command", function() {
+    before(async function(){
+        this.timeout(5000);
+        await VorpalCommand.cmdSetCurrentProject({id: 4038195})
+    });
+
     it('show repo info', async function(){
         this.timeout(5000);
         await VorpalCommand.cmdRepoInfo();
@@ -23,24 +28,22 @@ describe("Vorpal Command", function() {
 
     it('list tasks on project', async function(){
         this.timeout(5000);
-        await VorpalCommand.cmdSetCurrentProject({id: 4038195})
-        await VorpalCommand.cmdListIssues();
+        await VorpalCommand.cmdListTasks();
     });
 
-    it('test progress bar', async function(){
+    it('select task number', async function(){
         this.timeout(5000);
+        await VorpalCommand.cmdSetCurrentTask({number: 1});
+    })
 
-        var prog = new SimpleProgress(40);
-        var timer = setInterval(function () {
-            prog.tick();
-            if (prog.complete) {
-                console.log('\ncomplete\n');
-                clearInterval(timer);
-            }
-        }, 50);
-
-        await new Promise(function(suc, rej){
-            setTimeout(suc, 3500);
-        })
+    it('show task detail with number', async function(){
+        this.timeout(5000);
+        await VorpalCommand.cmdShowTaskDetail({number: 2});
     });
+
+    it('show task detail by current number', async function(){
+        this.timeout(5000);
+        await VorpalCommand.cmdShowTaskDetail();
+    });
+
 });

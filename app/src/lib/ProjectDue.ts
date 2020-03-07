@@ -6,11 +6,8 @@ import {DueProgress} from "./util/DueProgress";
 
 export class ProjectDue {
 
-    private user:string;
     private client:GithubApi
     private showProgress:boolean = false;
-
-    private projects:Project[];
 
     constructor(user: string, repo: string) {
         this.client = new GithubApi(user, repo);

@@ -14,8 +14,14 @@ vorpal.command('project list', 'プロジェクト一覧を取得する')
 vorpal.command('project set <id>', 'プロジェクトを指定する')
     .action(VorpalCommand.cmdSetCurrentProject);
 
-vorpal.command('issue list', 'issueの一覧を表示する')
-    .action(VorpalCommand.cmdListIssues);
+vorpal.command('task list', 'issueの一覧を表示する')
+    .action(VorpalCommand.cmdListTasks);
+
+vorpal.command('task set <number>', 'issue number をセットする')
+    .action(VorpalCommand.cmdSetCurrentTask);
+
+vorpal.command('task detail [number]', 'issue 詳細')
+    .action(VorpalCommand.cmdShowTaskDetail)
 
 vorpal
     .delimiter('due$');
