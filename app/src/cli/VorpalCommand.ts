@@ -7,9 +7,11 @@ const userName:string = "Aramassa";
 const repoName:string = "github-project-due-test";
 
 const due:ProjectDue = new ProjectDue(userName, repoName);
+due.progress = true;
 
 export class VorpalCommand{
 
+    private static currentProject: Project;
     private static currentProjectId:string;
 
     public static async cmdRepoInfo(args: any = null, callback: any = ()=>{}){
@@ -26,21 +28,22 @@ export class VorpalCommand{
     }
 
     public static async cmdSetCurrentProject(args: any = null, callback: any = ()=>{}){
-        this.currentProjectId = args['id'];
-        console.log(util.success(`project id set to ${this.currentProjectId}`));
+        VorpalCommand.currentProjectId = args['id'];
+
+        console.log(util.success(`project id set to ${VorpalCommand.currentProjectId}`));
+
+        VorpalCommand.currentProject = await due.getProject(VorpalCommand.currentProjectId);
         callback();
     }
 
-    public static async cmdListIssues(args: any = null, callback: any = ()=>{}): Promise<Project> {
-        let proj:Project = await due.getProject(this.currentProjectId);
-        let tasks:Task[] = await due.getProjectTasks(proj);
+    public static async cmdListIssues(args: any = null, callback: any = ()=>{}) {
+        let tasks:Task[] = await due.getProjectTasks(VorpalCommand.currentProject);
 
         for(let task of tasks){
             console.log(`${task.debug_line}`)
         }
 
         callback();
-        return proj;
     }
 
 }

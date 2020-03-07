@@ -13,6 +13,10 @@ export abstract class DueProgress<T> {
         this.progress = this.createInstance(total);
     }
 
+    public set total(total:number){
+        this.progress = this.createInstance(total);
+    }
+
     protected abstract createInstance(total: number): T;
 
     public abstract tick(num: number): void;

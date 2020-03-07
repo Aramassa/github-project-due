@@ -1,5 +1,7 @@
 import {GithubApi} from "../github/GithubApi";
 import {Task} from "./Task";
+import {DueProgress} from "../util/DueProgress";
+import BlankProgress from "../util/BlankProgress";
 
 export class Project{
 
@@ -71,11 +73,15 @@ export class Project{
         this.body = proj.body;
     }
 
-    public async loadTasks(client:GithubApi){
+    public async loadTasks(client:GithubApi, progress: DueProgress<any>){
         let cards:any = await client.listProjectCards(this.id);
         let tasks:Task[] = [];
+        progress.total = cards.length;
         for(let card of cards){
             let task = await Task.loadFromUrl(client, card.content_url);
+            progress.tick(1);
+
+            if(!task) continue;
             tasks.push(task);
         }
         this._tasks = tasks;

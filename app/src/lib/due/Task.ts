@@ -13,6 +13,7 @@ export class Task{
      * @param content_url
      */
     public static async loadFromUrl(client: GithubApi, content_url:string): Promise<Task>{
+        if(!content_url) return null;
         if(!content_url.includes("/issues/")) return null;
 
         let issueId:string = path.basename(content_url);
