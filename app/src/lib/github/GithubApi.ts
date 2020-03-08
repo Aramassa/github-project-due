@@ -13,6 +13,7 @@ interface Project{
 interface Issue{
     listIssues(options:any): Promise<any>;
     getIssue(issue:number): Promise<any>;
+    editIssue(num: number, data: any): Promise<any>;
 }
 
 export class GithubApi{
@@ -123,6 +124,10 @@ export class GithubApi{
     public async getIssue(id:number): Promise<any>{
         let issue = await (await this.objIssue()).getIssue(id)
         return issue.data;
+    }
+
+    public async editIssue(num: number, data: any){
+        await (await this.objIssue()).editIssue(num, data);
     }
 
     public async getRepoIssueList(options:any={}): Promise<any[]>{

@@ -2,6 +2,7 @@ import { should } from 'chai';
 should()
 
 import {GithubApi} from "../lib/github/GithubApi"
+import {DueStamp} from "../lib/util/DueStamp";
 
 const projectId:string = "4038195";
 const apiTest1:GithubApi = new GithubApi("Aramassa", "github-project-due-test");
@@ -34,7 +35,7 @@ describe("GithubApi", function() {
 
         let cards = await apiTest1.listProjectCards(projectId);
         cards.length.should.gte(1);
-    })
+    });
 
     it('list columns on project', async () => {
         this.timeout(5000);
@@ -44,9 +45,29 @@ describe("GithubApi", function() {
     });
 
     it('comment to issue', async()=>{
-        this.timeout();
+        this.timeout(5000);
 
         let issue: any = await apiTest1.getRepoIssueList();
+    });
+
+    it('update issue', async()=>{
+        this.timeout(5000);
+        const issueNumber:number = 3;
+
+        let issue: any = await apiTest1.getIssue(issueNumber);
+        await apiTest1.editIssue(issueNumber, {
+            title: DueStamp.modify(issue.title, '2020.3.25')
+        });
+    });
+
+    it('remove issue due', async()=>{
+        this.timeout(5000);
+        const issueNumber:number = 3;
+
+        let issue: any = await apiTest1.getIssue(issueNumber);
+        await apiTest1.editIssue(issueNumber, {
+            title: DueStamp.remove(issue.title)
+        });
     })
 
 });
