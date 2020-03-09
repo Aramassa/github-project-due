@@ -23,6 +23,12 @@ vorpal.command('task set <number>', 'issue number をセットする')
 vorpal.command('task detail [number]', 'issue 詳細')
     .action(VorpalCommand.cmdShowTaskDetail)
 
+vorpal.command('task snooze [num] [unit]', '期限をスヌーズ')
+    .action(VorpalCommand.cmdSnoozeTaskDue)
+
+vorpal.command('task advance [num] [unit]', '期限をフォワード')
+    .action(VorpalCommand.cmdAdvanceTaskDue)
+
 vorpal
     .delimiter('due$');
 

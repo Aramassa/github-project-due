@@ -2,12 +2,20 @@ const path = require("path");
 import {GithubApi} from "../github/GithubApi";
 
 export class Task{
+    get title(): string {
+        return this._title;
+    }
     private _id: string;
-    private title: string;
+    private _title: string;
     private state: string;
     private labels: Array<string>;
     private github_id: string;
     private body: string;
+
+    public async reload(client: GithubApi){
+        let data:any = await client.getIssue(Number(this._id));
+        this.dataWithApiResponse(data);
+    }
 
     /**
      * @param client
@@ -27,11 +35,11 @@ export class Task{
     }
 
     public get simple_string():string{
-        return `${this._id}) ${this.title} : ${this.state}`;
+        return `${this._id}) ${this._title} : ${this.state}`;
     }
 
     public get detail_string(): string{
-        return `${this._id}) ${this.title} : ${this.state} [${this.labels.join(",")}]\n${this.body}`;
+        return `${this._id}) ${this._title} : ${this.state} [${this.labels.join(",")}]\n${this.body}`;
     }
 
     public get id(): string{
@@ -41,7 +49,7 @@ export class Task{
     private dataWithApiResponse(data: any) {
         this._id = data.number;
         this.github_id = data._id;
-        this.title = data.title;
+        this._title = data.title;
         this.body = data.body;
         this.state = data.state;
         this.labels = data.labels.map((label:any) => { return label.name} );

@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Aramassa/github-project-due#readme",
   "dependencies": {
     "chalk": "^3.0.0",
+    "dayjs": "^1.8.22",
     "github-api": "^3.3.0",
     "progress": "^2.0.3",
     "progressbar": "^1.3.0",

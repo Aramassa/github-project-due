@@ -3,6 +3,8 @@ import {Project} from "./due/Project";
 import BlankProgress from "./util/BlankProgress";
 import SimpleProgress from "./util/SimpleProgress";
 import {DueProgress} from "./util/DueProgress";
+import {Task} from "./due/Task";
+import {DueStamp} from "./util/DueStamp";
 
 export class ProjectDue {
 
@@ -48,5 +50,17 @@ export class ProjectDue {
 
         return proj.tasks;
     }
+
+    public async snooze(task: Task, num: number, unit: string) {
+        await this.client.editIssue(Number(task.id), {
+            title: DueStamp.calculate(task.title, num, unit)
+        });
+    }
+
+    async reloadTask(task: Task) {
+        await task.reload(this.client);
+    }
+
+
 }
 

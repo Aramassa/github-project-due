@@ -72,4 +72,30 @@ export class VorpalCommand{
             util.error("selected number does not found.");
         }
     }
+
+    static async cmdSnoozeTaskDue(args: any = {}, callback: any = ()=>{}) {
+        let number = args.number || VorpalCommand.currentTaskNumber;
+        if(number){
+            let task:Task = VorpalCommand.currentProject.tasks.find((task: Task) => task.id == number)
+            await due.snooze(task, Number(args.num) || 1, args.unit || 'day');
+            await due.reloadTask(task);
+        } else {
+            util.error(`task not selected.`)
+        }
+
+        callback();
+    }
+
+    static async cmdAdvanceTaskDue(args: any = {}, callback: any = ()=>{}) {
+        let number = args.number || VorpalCommand.currentTaskNumber;
+        if(number){
+            let task:Task = VorpalCommand.currentProject.tasks.find((task: Task) => task.id == number)
+            await due.snooze(task, (Number(args.num) || 1)*-1, args.unit || 'day');
+            await due.reloadTask(task);
+        } else {
+            util.error(`task not selected.`)
+        }
+
+        callback();
+    }
 }
