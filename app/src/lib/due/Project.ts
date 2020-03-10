@@ -9,7 +9,7 @@ export class Project{
     private name: string;
     private body: string;
 
-    private _tasks:Task[];
+    private _tasks:Task[] = [];
 
     /**
      *
