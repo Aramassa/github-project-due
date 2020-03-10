@@ -7,7 +7,7 @@ import SimpleProgress from "../lib/util/SimpleProgress";
 
 describe("Vorpal Command", function() {
     before(async function(){
-        this.timeout(5000);
+        this.timeout(15000);
         await VorpalCommand.cmdSetCurrentProject({id: 4038195})
     });
 
