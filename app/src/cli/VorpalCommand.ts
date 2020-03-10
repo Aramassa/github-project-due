@@ -53,9 +53,9 @@ export class VorpalCommand{
     }
 
     static async cmdShowTaskDetail(args: any = {}, callback: any = ()=>{}) {
-        let number = args.number || VorpalCommand.currentTaskNumber;
-        if(number){
-            let task:Task = VorpalCommand.currentProject.tasks.find((task: Task) => task.id == number)
+        let number = args.number || VorpalCommand.currentTaskNumber || 0;
+        let task:Task = VorpalCommand.currentProject.tasks.find((task: Task) => task.id == number)
+        if(task){
             console.log(task.detail_string);
         } else {
             util.error(`task not selected.`)
