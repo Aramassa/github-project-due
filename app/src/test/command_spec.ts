@@ -27,7 +27,7 @@ describe("Vorpal Command", function() {
     });
 
     it('list tasks on project', async function(){
-        this.timeout(5000);
+        this.timeout(30000);
         await VorpalCommand.cmdListTasks();
     });
 

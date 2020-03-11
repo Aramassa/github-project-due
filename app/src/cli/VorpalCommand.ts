@@ -43,10 +43,10 @@ export class VorpalCommand{
     }
 
     public static async cmdListTasks(args: any = {}, callback: any = ()=>{}) {
-        let tasks:Task[] = VorpalCommand.currentProject.tasks;
+        let tasks:Task[] = await due.loadTaskParallel(VorpalCommand.currentProject)
 
         for(let task of tasks){
-            console.log(`${task.simple_string}`)
+            console.log(`${await task.simple_string()}`)
         }
 
         callback();
@@ -56,7 +56,7 @@ export class VorpalCommand{
         let number = args.number || VorpalCommand.currentTaskNumber || 0;
         let task:Task = VorpalCommand.currentProject.tasks.find((task: Task) => task.id == number)
         if(task){
-            console.log(task.detail_string);
+            console.log(await task.detail_string());
         } else {
             util.error(`task not selected.`)
         }
@@ -68,6 +68,7 @@ export class VorpalCommand{
         let task:Task = VorpalCommand.currentProject.tasks.find((task: Task) => task.id == args.number)
         if(task){
             VorpalCommand.currentTaskNumber = args.number;
+            console.log(`${await task.simple_string()}`)
         } else {
             util.error("selected number does not found.");
         }

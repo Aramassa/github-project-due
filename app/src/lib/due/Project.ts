@@ -73,13 +73,11 @@ export class Project{
         this.body = proj.body;
     }
 
-    public async loadTasks(client:GithubApi, progress: DueProgress<any>){
+    public async loadTasks(client:GithubApi){
         let cards:any = await client.listProjectCards(this.id);
         let tasks:Task[] = [];
-        progress.total = cards.length;
         for(let card of cards){
-            let task = await Task.loadFromUrl(client, card.content_url);
-            progress.tick(1);
+            let task = Task.proxy(client, card.content_url);
 
             if(!task) continue;
             tasks.push(task);

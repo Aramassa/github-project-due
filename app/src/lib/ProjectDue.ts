@@ -46,7 +46,7 @@ export class ProjectDue {
     }
 
     public async getProjectTasks(proj: Project) {
-        await proj.loadTasks(this.client, this.progressBar);
+        await proj.loadTasks(this.client);
 
         return proj.tasks;
     }
@@ -62,5 +62,9 @@ export class ProjectDue {
     }
 
 
+    public async loadTaskParallel(proj: Project): Promise<Task[]>{
+        await Task.loadParallel(proj.tasks, this.progressBar);
+        return proj.tasks;
+    }
 }
 
