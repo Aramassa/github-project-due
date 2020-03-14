@@ -5,6 +5,7 @@ import SimpleProgress from "./util/SimpleProgress";
 import {DueProgress} from "./util/DueProgress";
 import {Task} from "./due/Task";
 import {DueStamp} from "./util/DueStamp";
+import { TaskSearch } from "./due/TaskSearch";
 
 export class ProjectDue {
 
@@ -65,6 +66,10 @@ export class ProjectDue {
     public async loadTaskParallel(proj: Project): Promise<Task[]>{
         await Task.loadParallel(proj.tasks, this.progressBar);
         return proj.tasks;
+    }
+
+    public getSearch(proj: Project): TaskSearch{
+        return new TaskSearch(this, proj);
     }
 }
 

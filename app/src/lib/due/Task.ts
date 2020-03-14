@@ -1,4 +1,5 @@
 import {DueProgress} from "../util/DueProgress";
+import {DueStamp} from "../util/DueStamp";
 
 const path = require("path");
 import {GithubApi} from "../github/GithubApi";
@@ -7,9 +8,18 @@ export class Task{
     get title(): string {
         return this._title;
     }
+
+    get due(): String{
+        return DueStamp.extract(this._title);
+    }
+
+    get state(): String{
+        return this._state;
+    }
+
     private _id: string = "";
     private _title: string = "";
-    private state: string = "";
+    private _state: string = "";
     private labels: Array<string> = [];
     private github_id: string = "";
     private body: string = "";
@@ -110,7 +120,7 @@ export class Task{
         this.github_id = data._id;
         this._title = data.title;
         this.body = data.body;
-        this.state = data.state;
+        this._state = data.state;
         this.labels = data.labels.map((label:any) => { return label.name} );
     }
 }
