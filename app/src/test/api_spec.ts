@@ -78,7 +78,5 @@ describe("GithubApi", function() {
         await apiTest1.editIssue(issueNumber, {
             title: DueStamp.calculate(issue.title, 10, 'day')
         });
-
     });
-
 });
