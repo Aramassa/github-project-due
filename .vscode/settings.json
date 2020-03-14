@@ -1,0 +1,7 @@
+{
+  "mochaExplorer.cwd": "app",
+  "mochaExplorer.envPath": "envvars",
+  "mochaExplorer.require": "ts-node/register",
+  "mochaExplorer.files": "app/src/test/**/*.ts",
+  "mochaExplorer.logpanel": true
+}
