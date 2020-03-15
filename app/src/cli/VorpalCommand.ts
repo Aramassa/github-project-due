@@ -106,7 +106,10 @@ export class VorpalCommand{
         let arg_due :string = args["due"];
         let range :number = Number((args["options"] && args["options"]["range"]) || 0) ;
         let label :string = (args["options"] && args["options"]["labels"]) || null;
-        let search:TaskSearch = due.getSearch(VorpalCommand.currentProject).byDue(DueStamp.dateRange(arg_due, range));
+        let search:TaskSearch = due.getSearch(VorpalCommand.currentProject);
+        if(arg_due){
+            search.byDue(DueStamp.dateRange(arg_due, range))
+        }
         if(label){
             search.byLabels(label.split(","));
         }
