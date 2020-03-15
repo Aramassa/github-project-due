@@ -64,7 +64,6 @@ export class TaskSearch{
   }
 
   public async doSerach(): Promise<Task[]>{
-    await this._due.getProjectTasks(this._proj);
     let tasks:Task[] = await this._due.loadTaskParallel(this._proj);
 
     if(this._srchDue.length>0){
