@@ -113,12 +113,14 @@ export class VorpalCommand{
         if(label){
             search.byLabels(label.split(","));
         }
-        if((args["options"] && args["options"]["all"])){
+        if(args["options"] && args["options"]["all"]){
             search.allState();
         }
-        let tasks:Task[] = await search.doSerach()
+        if(args["options"] && args["options"]["milestones"]){
+            search.byMilestone(args["options"]["milestones"].split(","));
 
-        console.log(args["options"]);
+        }
+        let tasks:Task[] = await search.doSerach()
 
         if(args["options"] && args["options"]["group-by"]){
             let type:string = args["options"]["group-by"];

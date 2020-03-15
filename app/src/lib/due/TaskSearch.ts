@@ -13,6 +13,7 @@ export class TaskSearch{
   private _srchDue:string[] = [];
   private _srchState:string[] = [];
   private _srchLabels:string[] = [];
+  private _srchMilestone:string[] = [];
 
   constructor(due: ProjectDue, proj: Project){
     this._due  = due;
@@ -37,6 +38,12 @@ export class TaskSearch{
 
   public byDue(due: string[]): TaskSearch{
     this._srchDue = due;
+
+    return this;
+  }
+
+  public byMilestone(milestones: string[]): TaskSearch{
+    this._srchMilestone = milestones;
 
     return this;
   }
@@ -75,6 +82,12 @@ export class TaskSearch{
     if(this._srchLabels.length>0){
       tasks = tasks.filter((task)=>{
         return (this._srchLabels.filter(label => task.labels.includes(label))).length >= 1;
+      });
+    }
+
+    if(this._srchMilestone.length>0){
+      tasks = tasks.filter((task)=>{
+        return this._srchMilestone.includes(task.milestone);
       });
     }
     

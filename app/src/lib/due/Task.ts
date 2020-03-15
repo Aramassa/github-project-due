@@ -21,10 +21,15 @@ export class Task{
         return this._labels;
     }
 
+    get milestone(): string{
+        return this._milestone;
+    }
+
     private _id: string = "";
     private _title: string = "";
     private _state: string = "";
     private _labels: Array<string> = [];
+    private _milestone: string = "";
     private github_id: string = "";
     private body: string = "";
     private _proxy: any;
@@ -107,12 +112,12 @@ export class Task{
 
     public async simple_string(): Promise<string>{
         await this.loadProxy();
-        return `${this._id}) ${this.state}: ${this._title} [${this.labels.join(",")}]`;
+        return `${this._id}) ${this.state}: ${this._title} ${this.milestone}[${this.labels.join(",")}]`;
     }
 
     public async detail_string(): Promise<string>{
         await this.loadProxy();
-        return `${this._id}) ${this.state}: ${this._title} [${this.labels.join(",")}]\n${this.body}`;
+        return `${this._id}) ${this.state}: ${this._title} ${this.milestone}[${this.labels.join(",")}]\n${this.body}`;
     }
 
     public get id(): string{
@@ -126,5 +131,8 @@ export class Task{
         this.body = data.body;
         this._state = data.state;
         this._labels = data.labels.map((label:any) => { return label.name} );
+        if(data.milestone){
+            this._milestone = data.milestone.title;
+        }
     }
 }

@@ -63,37 +63,49 @@ describe("Vorpal Command", function() {
         });
     });
 
-    it('search by due range 3 grouping by date', async function(){
+    it('search by due range 3 grouping by due', async function(){
         this.timeout(5000);
         await VorpalCommand.cmdSearchByDue({
             "due": "2020.3.12",
             "options": {
                 "range": "3",
-                "date": true
+                "group-by": 'due'
             }
         });
     });
 
-    it('search by due range 3 label `bug` grouping by date', async function(){
+    it('search by due range 3 and milestone `SP-19` grouping by due', async function(){
+        this.timeout(5000);
+        await VorpalCommand.cmdSearchByDue({
+            "due": "2020.3.12",
+            "options": {
+                "range": "3",
+                "milestones": "SP-19",
+                "group-by": 'due'
+            }
+        });
+    });
+
+    it('search by due range 3 label `bug` grouping by due', async function(){
         this.timeout(5000);
         await VorpalCommand.cmdSearchByDue({
             "due": "2020.3.12",
             "options": {
                 "range": "3",
                 "labels": 'bug',
-                "date": true
+                "group-by": 'due'
             }
         });
     });
 
-    it('search by due range 3 label `bug` grouping by date with close state', async function(){
+    it('search by due range 3 label `bug` grouping by due with close state', async function(){
         this.timeout(5000);
         await VorpalCommand.cmdSearchByDue({
             "due": "2020.3.12",
             "options": {
                 "range": "3",
                 "labels": 'bug',
-                "date": true,
+                "group-by": 'due',
                 "all": true
             }
         });
