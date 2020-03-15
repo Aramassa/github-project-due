@@ -10,9 +10,9 @@ export class TaskSearch{
   private _due: ProjectDue;
   private _proj: Project;
 
-  private _srchDue:String[] = [];
-  private _srchState:String[] = [];
-  private _srchLabels:String[] = [];
+  private _srchDue:string[] = [];
+  private _srchState:string[] = [];
+  private _srchLabels:string[] = [];
 
   constructor(due: ProjectDue, proj: Project){
     this._due  = due;
@@ -29,29 +29,28 @@ export class TaskSearch{
     else this.openState();
   }
 
-  public byLabels(labels: String[]): TaskSearch{
+  public byLabels(labels: string[]): TaskSearch{
     this._srchLabels = labels;
 
     return this;
   }
 
-  public byDue(due: String[] | String): TaskSearch{
-    if(due instanceof String) due = [due];
+  public byDue(due: string[]): TaskSearch{
     this._srchDue = due;
 
     return this;
   }
 
-  public inDaysFor(days: number, fromDay: String=null): TaskSearch{
-    let srch: String[]
+  public inDaysFor(days: number, fromDay: string=null): TaskSearch{
+    let srch: string[];
     if(fromDay){
       srch = [fromDay];
     } else {
-      srch = [DueStamp.format(dayjs())];
+      srch = [DueStamp.format(dayjs()).toString()];
     }
     
     for(let i=1; i<=days; i++){
-      srch.push(DueStamp.format(dayjs(fromDay).add(i, 'day')));
+      srch.push(DueStamp.format(dayjs(fromDay).add(i, 'day')).toString());
     }
     this.byDue(srch);
     return this;
@@ -69,7 +68,7 @@ export class TaskSearch{
 
     if(this._srchState.length>0){
       tasks = tasks.filter((task)=>{
-        return this._srchState.includes(task.state);
+        return this._srchState.includes(task.state.toString());
       });
     }
 

@@ -34,15 +34,15 @@ export class DueStamp{
         }
     }
 
-    static extract(title: String){
+    static extract(title: string){
         let found = title.match(/DUE:\(([0-9\.]+)\)/);
         if(!found) return null;
 
         return dayjs(found[1]).format('YYYY.M.D');
     }
 
-    static dateRange(from: String, num: number): String[]{
-        let res :String[] = [];
+    static dateRange(from: string, num: number): string[]{
+        let res :string[] = [];
         res.push(from);
         for(let i=1; i<=num; i++){
             res.push(dayjs(from).add(i, 'day').format('YYYY.M.D'));

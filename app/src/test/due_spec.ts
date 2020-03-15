@@ -21,7 +21,7 @@ describe("Project Due", function() {
 
   it('search tasks by due', async function(){
     this.timeout(15000);
-    let tasks:Task[] = await due.getSearch(project).byDue('2020.3.12').doSerach();
+    let tasks:Task[] = await due.getSearch(project).byDue(['2020.3.12']).doSerach();
 
     tasks.length.should.eq(2);
   });

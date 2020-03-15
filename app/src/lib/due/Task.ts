@@ -17,7 +17,7 @@ export class Task{
         return this._state;
     }
 
-    get labels(): String[]{
+    get labels(): string[]{
         return this._labels;
     }
 
