@@ -3,6 +3,7 @@ import {Project} from "../lib/due/Project";
 import {Task} from "../lib/due/Task";
 import {VorpalUtil as util} from "./VorpalUtil";
 import {DueStamp} from "../lib/util/DueStamp";
+import { TaskSearch } from "../lib/due/TaskSearch";
 
 const userName:string = "Aramassa";
 const repoName:string = "github-project-due-test";
@@ -102,10 +103,18 @@ export class VorpalCommand{
     }
 
     static async cmdSearchByDue(args: any = {}, callback: any = ()=>{}) {
-        console.log(args);
         let arg_due :string = args["due"];
         let range :number = Number((args["options"] && args["options"]["range"]) || 0) ;
-        let tasks:Task[] = await due.getSearch(VorpalCommand.currentProject).byDue(DueStamp.dateRange(arg_due, range)).doSerach();
+        let label :string = (args["options"] && args["options"]["labels"]) || null;
+        let search:TaskSearch = due.getSearch(VorpalCommand.currentProject).byDue(DueStamp.dateRange(arg_due, range));
+        if(label){
+            search.byLabels(label.split(","));
+        }
+        if((args["options"] && args["options"]["all"])){
+            search.allState();
+        }
+        let tasks:Task[] = await search.doSerach()
+        
 
         if(args["options"] && args["options"]["date"]){
             let tmp:any = {};

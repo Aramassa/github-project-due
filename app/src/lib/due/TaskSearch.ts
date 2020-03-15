@@ -24,7 +24,7 @@ export class TaskSearch{
     this._srchState = ['open'];
   }
 
-  public allState(flg:boolean):void{
+  public allState(flg:boolean=true):void{
     if(flg) this._srchState = [];
     else this.openState();
   }

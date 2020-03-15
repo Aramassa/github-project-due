@@ -73,4 +73,29 @@ describe("Vorpal Command", function() {
             }
         });
     });
+
+    it('search by due range 3 label `bug` grouping by date', async function(){
+        this.timeout(5000);
+        await VorpalCommand.cmdSearchByDue({
+            "due": "2020.3.12",
+            "options": {
+                "range": "3",
+                "labels": 'bug',
+                "date": true
+            }
+        });
+    });
+
+    it('search by due range 3 label `bug` grouping by date with close state', async function(){
+        this.timeout(5000);
+        await VorpalCommand.cmdSearchByDue({
+            "due": "2020.3.12",
+            "options": {
+                "range": "3",
+                "labels": 'bug',
+                "date": true,
+                "all": true
+            }
+        });
+    });
 });

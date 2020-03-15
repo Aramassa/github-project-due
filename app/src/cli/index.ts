@@ -33,6 +33,7 @@ vorpal.command('search due [due]', '期日で探す')
     .option('-d, --date', '日付でグルーピング')
     .option('-l, --labels [label]', 'ラベルの指定')
     .option('-r, --range [range]', '期間の指定')
+    .option('-a, --all', 'close も対象にする')
     .alias('due')
     .action(VorpalCommand.cmdSearchByDue)
 
