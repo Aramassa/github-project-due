@@ -2,6 +2,7 @@ import {ProjectDue} from "../lib/ProjectDue";
 import {Project} from "../lib/due/Project";
 import {Task} from "../lib/due/Task";
 import {VorpalUtil as util} from "./VorpalUtil";
+import {DueStamp} from "../lib/util/DueStamp";
 
 const userName:string = "Aramassa";
 const repoName:string = "github-project-due-test";
@@ -97,6 +98,39 @@ export class VorpalCommand{
             util.error(`task not selected.`)
         }
 
+        callback();
+    }
+
+    static async cmdSearchByDue(args: any = {}, callback: any = ()=>{}) {
+        console.log(args);
+        let arg_due :string = args["due"];
+        let range :number = Number((args["options"] && args["options"]["range"]) || 0) ;
+        let tasks:Task[] = await due.getSearch(VorpalCommand.currentProject).byDue(DueStamp.dateRange(arg_due, range)).doSerach();
+
+        if(args["options"] && args["options"]["date"]){
+            let tmp:any = {};
+            let tmp_sort :any = {};
+            for(let task of tasks){
+                if(!tmp[task.due]) tmp[task.due] = [];
+                tmp[task.due].push(task);
+            }
+
+            Object.keys(tmp).sort().forEach(function(key) {
+                tmp_sort[key] = tmp[key];
+            });
+
+            for(let d1 in tmp_sort){
+                console.log(`-- ${d1}`);
+                for(let t of tmp_sort[d1]){
+                    console.log(`  ${await t.simple_string()}`)
+                }
+                console.log('');
+            }
+        } else {
+            for(let task of tasks){
+                console.log(`${await task.simple_string()}`)
+            }
+        }
         callback();
     }
 }

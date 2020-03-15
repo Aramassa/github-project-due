@@ -40,4 +40,13 @@ export class DueStamp{
 
         return dayjs(found[1]).format('YYYY.M.D');
     }
+
+    static dateRange(from: String, num: number): String[]{
+        let res :String[] = [];
+        res.push(from);
+        for(let i=1; i<=num; i++){
+            res.push(dayjs(from).add(i, 'day').format('YYYY.M.D'));
+        }
+        return res;
+    }
 }

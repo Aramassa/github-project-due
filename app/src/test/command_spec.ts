@@ -46,4 +46,31 @@ describe("Vorpal Command", function() {
         await VorpalCommand.cmdShowTaskDetail();
     });
 
+    it('search by due', async function(){
+        this.timeout(5000);
+        await VorpalCommand.cmdSearchByDue({
+            "due": "2020.3.14"
+        });
+    })
+
+    it('search by due range 3', async function(){
+        this.timeout(5000);
+        await VorpalCommand.cmdSearchByDue({
+            "due": "2020.3.12",
+            "options": {
+                "range": "3"
+            }
+        });
+    });
+
+    it('search by due range 3 grouping by date', async function(){
+        this.timeout(5000);
+        await VorpalCommand.cmdSearchByDue({
+            "due": "2020.3.12",
+            "options": {
+                "range": "3",
+                "date": true
+            }
+        });
+    });
 });

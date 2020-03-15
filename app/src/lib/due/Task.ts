@@ -9,7 +9,7 @@ export class Task{
         return this._title;
     }
 
-    get due(): String{
+    get due(): string{
         return DueStamp.extract(this._title);
     }
 
@@ -107,12 +107,12 @@ export class Task{
 
     public async simple_string(): Promise<string>{
         await this.loadProxy();
-        return `${this._id}) ${this._title} : ${this.state} [${this.labels.join(",")}]`;
+        return `${this._id}) ${this.state}: ${this._title} [${this.labels.join(",")}]`;
     }
 
     public async detail_string(): Promise<string>{
         await this.loadProxy();
-        return `${this._id}) ${this._title} : ${this.state} [${this.labels.join(",")}]\n${this.body}`;
+        return `${this._id}) ${this.state}: ${this._title} [${this.labels.join(",")}]\n${this.body}`;
     }
 
     public get id(): string{
