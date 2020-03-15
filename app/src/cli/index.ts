@@ -30,7 +30,7 @@ vorpal.command('task advance [num] [unit]', '期限をフォワード')
     .action(VorpalCommand.cmdAdvanceTaskDue)
     
 vorpal.command('search due [due]', '期日で探す')
-    .option('-d, --date', '日付でグルーピング')
+    .option('-g, --group-by <type>', 'グルーピング', ['due', 'label'])
     .option('-l, --labels [label]', 'ラベルの指定')
     .option('-r, --range [range]', '期間の指定')
     .option('-a, --all', 'close も対象にする')

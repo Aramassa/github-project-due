@@ -117,14 +117,30 @@ export class VorpalCommand{
             search.allState();
         }
         let tasks:Task[] = await search.doSerach()
-        
 
-        if(args["options"] && args["options"]["date"]){
+        console.log(args["options"]);
+
+        if(args["options"] && args["options"]["group-by"]){
+            let type:string = args["options"]["group-by"];
             let tmp:any = {};
             let tmp_sort :any = {};
-            for(let task of tasks){
-                if(!tmp[task.due]) tmp[task.due] = [];
-                tmp[task.due].push(task);
+            switch(type){
+                case 'label':
+                    for(let task of tasks){
+                        for(let label of task.labels){
+                            if(!tmp[label]) tmp[label] = [];
+                            tmp[label].push(task);
+                        }
+                    }
+                    break;
+                case 'due':
+                default:
+                    for(let task of tasks){
+                        if(!tmp[task.due]) tmp[task.due] = [];
+                        tmp[task.due].push(task);
+                    }
+                    break;
+
             }
 
             Object.keys(tmp).sort().forEach(function(key) {
