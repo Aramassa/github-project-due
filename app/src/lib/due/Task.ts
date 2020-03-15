@@ -13,11 +13,16 @@ export class Task{
         return DueStamp.extract(this._title);
     }
 
+    get due4disp(): string{
+        return DueStamp.extract(this._title, true);
+    }
+
     get state(): String{
         return this._state;
     }
 
     get labels(): string[]{
+        if(this._labels.length == 0) return ['-'];
         return this._labels;
     }
 

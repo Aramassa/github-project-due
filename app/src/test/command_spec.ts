@@ -46,14 +46,14 @@ describe("Vorpal Command", function() {
         await VorpalCommand.cmdShowTaskDetail();
     });
 
-    it('search by due', async function(){
+    it('search by due `2020.3.12`', async function(){
         this.timeout(5000);
         await VorpalCommand.cmdSearchByDue({
             "due": "2020.3.14"
         });
     })
 
-    it('search by due range 3', async function(){
+    it('search by due range 3 from `2020.3.12`', async function(){
         this.timeout(5000);
         await VorpalCommand.cmdSearchByDue({
             "due": "2020.3.12",

@@ -138,8 +138,9 @@ export class VorpalCommand{
                 case 'due':
                 default:
                     for(let task of tasks){
-                        if(!tmp[task.due]) tmp[task.due] = [];
-                        tmp[task.due].push(task);
+                        let dd:string = task.due4disp;
+                        if(!tmp[dd]) tmp[dd] = [];
+                        tmp[dd].push(task);
                     }
                     break;
 

@@ -34,11 +34,13 @@ export class DueStamp{
         }
     }
 
-    static extract(title: string){
+    static extract(title: string, disp:boolean = false){
         let found = title.match(/DUE:\(([0-9\.]+)\)/);
         if(!found) return null;
 
-        return dayjs(found[1]).format('YYYY.M.D');
+        let pat:string = disp ? "YYYY.MM.DD" : "YYYY.M.D";
+
+        return dayjs(found[1]).format(pat);
     }
 
     static dateRange(from: string, num: number): string[]{
