@@ -30,6 +30,7 @@ vorpal.command('task advance [num] [unit]', '期限をフォワード')
     .action(VorpalCommand.cmdAdvanceTaskDue)
     
 vorpal.command('search due [due]', '期日で探す')
+    .option('-t --today', '本日基準')
     .option('-g, --group-by <type>', 'グルーピング', ['due', 'label'])
     .option('-l, --labels <label>', 'ラベルの指定')
     .option('-m, --milestones <name>', 'マイルストーンの指定')

@@ -103,7 +103,12 @@ export class VorpalCommand{
     }
 
     static async cmdSearchByDue(args: any = {}, callback: any = ()=>{}) {
-        let arg_due :string = args["due"];
+        let arg_due :string;
+        if(args["options"] && args["options"]["today"]){
+            arg_due = DueStamp.today();
+        } else {
+            arg_due = args["due"];
+        }
         let range :number = Number((args["options"] && args["options"]["range"]) || 0) ;
         let label :string = (args["options"] && args["options"]["labels"]) || null;
         let search:TaskSearch = due.getSearch(VorpalCommand.currentProject);

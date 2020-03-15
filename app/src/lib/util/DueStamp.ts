@@ -6,8 +6,12 @@ export class DueStamp{
      * 
      * @param d dayjs
      */
-    public static format(d: any): String{
+    public static format(d: any): string{
         return d.format('YYYY.M.D');
+    }
+
+    public static today(): string{
+        return dayjs().format('YYYY.M.D');
     }
 
     public static modify(title: string, to: string): string{
