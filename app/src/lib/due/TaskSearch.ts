@@ -12,17 +12,31 @@ export class TaskSearch{
 
   private _srchDue:String[] = [];
   private _srchState:String[] = [];
+  private _srchLabels:String[] = [];
 
   constructor(due: ProjectDue, proj: Project){
     this._due  = due;
     this._proj = proj;
+    this.openState();
+  }
+
+  private openState(){
     this._srchState = ['open'];
   }
 
+  public allState(flg:boolean):void{
+    if(flg) this._srchState = [];
+    else this.openState();
+  }
+
+  public byLabels(labels: String[]): TaskSearch{
+    this._srchLabels = labels;
+
+    return this;
+  }
+
   public byDue(due: String[] | String): TaskSearch{
-    if(due instanceof String){
-      due = [due];
-    }
+    if(due instanceof String) due = [due];
     this._srchDue = due;
 
     return this;
@@ -47,16 +61,24 @@ export class TaskSearch{
     await this._due.getProjectTasks(this._proj);
     let tasks:Task[] = await this._due.loadTaskParallel(this._proj);
 
-    tasks = tasks.filter((task)=>{
-      return this._srchDue.includes(task.due);
-    })
+    if(this._srchDue.length>0){
+      tasks = tasks.filter((task)=>{
+        return this._srchDue.includes(task.due);
+      });
+    }
 
-    tasks = tasks.filter((task)=>{
-      return this._srchState.includes(task.state);
-    })
+    if(this._srchState.length>0){
+      tasks = tasks.filter((task)=>{
+        return this._srchState.includes(task.state);
+      });
+    }
+
+    if(this._srchLabels.length>0){
+      tasks = tasks.filter((task)=>{
+        return (this._srchLabels.filter(label => task.labels.includes(label))).length >= 1;
+      });
+    }
     
-
-
     return tasks;
   }
 }

@@ -17,10 +17,6 @@ describe("Project Due", function() {
     await due.getProjectTasks(project);
 
     let tasks:Task[] = await due.loadTaskParallel(project);
-
-    for(let task of tasks){
-        console.log(`${await task.simple_string()}`)
-    }
   });
 
   it('search tasks by due', async function(){
@@ -40,4 +36,28 @@ describe("Project Due", function() {
 
     tasks.length.should.eq(3);
   });
+
+  it('search tasks by label `bug`', async function(){
+    this.timeout(5000);
+
+    let tasks:Task[] = await due.getSearch(project).byLabels(["bug"]).doSerach();
+
+    for(let task of tasks){
+      console.log(`- ${await task.simple_string()}`)
+    }
+
+    tasks.length.should.gte(1);
+  });
+
+  it('search tasks by multiple label `bug, 日本語`', async function(){
+    this.timeout(5000);
+
+    let tasks:Task[] = await due.getSearch(project).byLabels(["bug", "日本語"]).doSerach();
+
+    for(let task of tasks){
+      console.log(`- ${await task.simple_string()}`)
+    }
+
+    tasks.length.should.gte(1);
+  })
 });
