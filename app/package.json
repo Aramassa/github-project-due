@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "cli": "npm run build && node ./cli.js",
+    "batch": "npm run build && node ./batch.js",
     "build": "npm run clean && tsc",
     "clean": "rm -rf dist",
     "test": "mocha --require ts-node/register src/test/**/*.ts"
