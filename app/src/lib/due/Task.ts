@@ -6,7 +6,7 @@ import {GithubApi} from "../github/GithubApi";
 
 export class Task{
     get title(): string {
-        return this._title;
+        return DueStamp.remove(this._title);
     }
 
     get due(): string{
@@ -115,9 +115,20 @@ export class Task{
         return task;
     }
 
-    public async simple_string(): Promise<string>{
+    public async simple_string(format:string = "S1"): Promise<string>{
         await this.loadProxy();
-        return `${this._title}: ${this._id}) ${this.state}: ${this.milestone}[${this.labels.join(",")}]`;
+        switch(format){
+            case "S1":
+                return `${this._id.padStart(5, ' ')}) ${this.title} [${this.labels.join(",")}]`;
+                break;
+            case "S2":
+                return `${this._id.padStart(5, ' ')}) ${this.title} ${this.state}: ${this.milestone}[${this.labels.join(",")}]`;
+                break;
+            case "S9":
+            default:
+                return `${this._title}: ${this._id}) ${this.state}: ${this.milestone}[${this.labels.join(",")}]`;
+        }
+        
     }
 
     public async detail_string(): Promise<string>{
