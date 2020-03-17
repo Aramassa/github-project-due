@@ -112,6 +112,7 @@ export class VorpalCommand{
         let range :number = Number((args["options"] && args["options"]["range"]) || 0) ;
         let label :string = (args["options"] && args["options"]["labels"]) || null;
         let search:TaskSearch = due.getSearch(VorpalCommand.currentProject);
+        let format:string = (args["options"] && args["options"]["format"]) || null;
         if(arg_due){
             search.byDue(DueStamp.dateRange(arg_due, range))
         }
@@ -158,13 +159,14 @@ export class VorpalCommand{
             for(let d1 in tmp_sort){
                 console.log(`-- ${d1}`);
                 for(let t of tmp_sort[d1]){
-                    console.log(`  ${await t.simple_string()}`)
+                    console.log(`  ${await t.simple_string(format)}`);
+                    console.log(`          assign: ${t.assignees.join(',')}`);
                 }
                 console.log('');
             }
         } else {
             for(let task of tasks){
-                console.log(`${await task.simple_string()}`)
+                console.log(`${await task.simple_string(format)}`);
             }
         }
         callback();

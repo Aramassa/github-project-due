@@ -26,6 +26,11 @@ export class Task{
         return this._labels;
     }
 
+    get assignees(): string[]{
+        if(this._assignees.length == 0) return ['-'];
+        return this._assignees;
+    }
+
     get milestone(): string{
         return this._milestone;
     }
@@ -34,6 +39,7 @@ export class Task{
     private _title: string = "";
     private _state: string = "";
     private _labels: Array<string> = [];
+    private _assignees: Array<string> = [];
     private _milestone: string = "";
     private github_id: string = "";
     private body: string = "";
@@ -119,9 +125,12 @@ export class Task{
         await this.loadProxy();
         switch(format){
             case "S1":
-                return `${this._id.padStart(5, ' ')}) ${this.title} [${this.labels.join(",")}]`;
+                return `${this._id.padStart(5, ' ')}) ${this.title} ${this.state}`;
                 break;
             case "S2":
+                return `${this._id.padStart(5, ' ')}) ${this.title} ${this.state}: [${this.labels.join(",")}]`;
+                break;
+            case "S3":
                 return `${this._id.padStart(5, ' ')}) ${this.title} ${this.state}: ${this.milestone}[${this.labels.join(",")}]`;
                 break;
             case "S9":
@@ -147,6 +156,7 @@ export class Task{
         this.body = data.body;
         this._state = data.state;
         this._labels = data.labels.map((label:any) => { return label.name} );
+        this._assignees = data.assignees.map((assignee:any) => { return assignee.login} );
         if(data.milestone){
             this._milestone = data.milestone.title;
         }

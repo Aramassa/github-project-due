@@ -36,6 +36,7 @@ vorpal.command('search due [due]', '期日で探す')
     .option('-m, --milestones <name>', 'マイルストーンの指定')
     .option('-r, --range <range>', '期間の指定')
     .option('-a, --all', 'close も対象にする')
+    .option('-f, --format <format>', 'format', ['S1', 'S2', 'S3'])
     .alias('due')
     .action(VorpalCommand.cmdSearchByDue)
 
