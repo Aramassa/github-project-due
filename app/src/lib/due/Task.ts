@@ -117,12 +117,12 @@ export class Task{
 
     public async simple_string(): Promise<string>{
         await this.loadProxy();
-        return `${this._id}) ${this.state}: ${this._title} ${this.milestone}[${this.labels.join(",")}]`;
+        return `${this._title}: ${this._id}) ${this.state}: ${this.milestone}[${this.labels.join(",")}]`;
     }
 
     public async detail_string(): Promise<string>{
         await this.loadProxy();
-        return `${this._id}) ${this.state}: ${this._title} ${this.milestone}[${this.labels.join(",")}]\n${this.body}`;
+        return `${this._title}: ${this._id}) ${this.state}: ${this.milestone}[${this.labels.join(",")}]\n${this.body}`;
     }
 
     public get id(): string{
