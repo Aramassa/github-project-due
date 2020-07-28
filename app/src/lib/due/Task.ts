@@ -2,7 +2,7 @@ import {DueProgress} from "../util/DueProgress";
 import {DueStamp} from "../util/DueStamp";
 
 const path = require("path");
-import {GithubApi} from "../github/GithubApi";
+import GithubApi from "github-project-client";
 
 export class Task{
     get title(): string {

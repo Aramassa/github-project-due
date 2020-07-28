@@ -1,4 +1,4 @@
-import {GithubApi} from "../github/GithubApi";
+import GithubApi from "github-project-client";
 import {Task} from "./Task";
 import {DueProgress} from "../util/DueProgress";
 import BlankProgress from "../util/BlankProgress";

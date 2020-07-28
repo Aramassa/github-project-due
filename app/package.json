@@ -27,6 +27,7 @@
     "chalk": "^3.0.0",
     "dayjs": "^1.8.22",
     "github-api": "^3.3.0",
+    "github-project-client": "file:../../github-project-client",
     "progress": "^2.0.3",
     "progressbar": "^1.3.0",
     "vorpal": "^1.12.0"
