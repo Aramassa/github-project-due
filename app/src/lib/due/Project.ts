@@ -1,4 +1,4 @@
-import GithubApi from "github-project-client";
+import GithubApi from "@Aramassa/github-project-client";
 import {Task} from "./Task";
 import {DueProgress} from "../util/DueProgress";
 import BlankProgress from "../util/BlankProgress";
